@@ -21,7 +21,7 @@ def flatten_a_o_a(aoa)
 end
 
 def movie_with_director_name(director_name, movie_data)
-  { 
+  {
     :title => movie_data[:title],
     :worldwide_gross => movie_data[:worldwide_gross],
     :release_year => movie_data[:release_year],
@@ -48,24 +48,50 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
+
+  output = []
+  title_i = 0
+
+  while title_i < movies_collection.length do
+    output << {
+      :director_name => name,
+      :title => movies_collection[title_i][:title]
+    }
+    title_i += 1
+  end
+
+output
 end
 
 
 def gross_per_studio(collection)
-  # GOAL: Given an Array of Hashes where each Hash represents a movie,
-  # return a Hash that includes the total worldwide_gross of all the movies from
-  # each studio.
-  #
-  # INPUT:
-  # * collection: Array of Hashes where each Hash where each Hash represents a movie
-  #
-  # RETURN:
-  #
-  # Hash whose keys are the studio names and whose values are the sum
-  # total of all the worldwide_gross numbers for every movie in the input Hash
+
+  movie_i = 0
+  total = {}
+
+  while movie_i < collection.length do
+
+    movie_studio = collection[movie_i][:studio]
+    movie_gross = collection[movie_i][:worldwide_gross]
+
+    if !total[movie_studio]
+
+      total[movie_studio] = movie_gross
+
+    else
+
+      total[movie_studio] += movie_gross
+
+    end
+
+    movie_i += 1
+  end
+
+total
 end
 
 def movies_with_directors_set(source)
+
   # GOAL: For each director, find their :movies Array and stick it in a new Array
   #
   # INPUT:
@@ -76,7 +102,20 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
+
+  directors = []
+  dir_i = 0
+
+  while dir_i < source.length do
+
+    directors << movies_with_director_key(source[dir_i][:name], source[dir_i][:movies])
+    dir_i += 1
+
+  end
+
+  directors
 end
+
 
 # ----------------    End of Your Code Region --------------------
 # Don't edit the following code! Make the methods above work with this method
