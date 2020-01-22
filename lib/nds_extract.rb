@@ -60,34 +60,23 @@ def gross_per_studio(collection)
   
   for movie in collection do
     
-    pp "###Data###"
-    pp movie
-    
     studio = movie[:studio]
     gross  = movie[:worldwide_gross]
     
     if !output[studio]
       
-      print "TEST##Alpha##TEST\n"
-      
       output[studio] = gross
-      pp output[studio]
       
     
     else
       
-      print "TEST##Beta##TEST\n"
-      
-      pp output[studio]
       output[studio] += gross
-      pp output[studio]
       
     end
   
  end
  
- pp "###OUTPUT###"
- pp output
+ output
   
 end
 
